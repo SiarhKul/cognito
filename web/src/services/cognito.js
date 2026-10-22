@@ -17,7 +17,13 @@ function getUserPool() {
   });
 }
 
-export function createAccount({ email, password, firstName, lastName, company }) {
+export function createAccount({
+  email,
+  password,
+  firstName,
+  lastName,
+  company,
+}) {
   const attributes = [
     ["email", email],
     ["given_name", firstName],
@@ -95,6 +101,7 @@ export function signIn(email, password) {
       Username: email.trim(),
       Pool: getUserPool(),
     });
+
     const details = new AuthenticationDetails({
       Username: email.trim(),
       Password: password,
@@ -116,7 +123,9 @@ export function signIn(email, password) {
         ),
       mfaRequired: () =>
         reject(
-          new Error("Multi-factor authentication is required for this account."),
+          new Error(
+            "Multi-factor authentication is required for this account.",
+          ),
         ),
       totpRequired: () =>
         reject(
